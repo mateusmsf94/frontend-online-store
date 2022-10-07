@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import ShoppingCart from './pages/ShoppingCart';
+import Categories from './components/Categories';
 
 class App extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class App extends React.Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Categories />
       </>
     );
   }
