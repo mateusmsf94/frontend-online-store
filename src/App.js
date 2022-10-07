@@ -1,15 +1,15 @@
 import React from 'react';
-import './App.css';
-import { getCategories } from './services/api';
 
-function App() {
-  // Requisito 1
-  return (
-    <div className="App">
-      { getCategories() }
-
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      // <>
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+      // </>
+    );
+  }
 }
 
 export default App;
