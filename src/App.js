@@ -1,6 +1,7 @@
 import React from 'react';
 
 class App extends React.Component {
+  // Requisito 5
   render() {
     return (
       // <>
