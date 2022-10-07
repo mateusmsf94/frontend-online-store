@@ -1,9 +1,22 @@
 import React from 'react';
 
 class ShoppingCart extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cart: [],
+    };
+  }
+
   render() {
+    const { cart } = this.state;
     return (
-      <h1>Carrinho de compras</h1>
+      <div>
+        {cart.length === 0
+          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          : cart.map((item) => <p>{item}</p>)}
+
+      </div>
     );
   }
 }
