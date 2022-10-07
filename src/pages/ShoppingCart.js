@@ -14,7 +14,7 @@ class ShoppingCart extends React.Component {
       <div>
         {cart.length === 0
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : cart.map((item) => <p>{item}</p>)}
+          : cart.map((item, index) => <p key={ index }>{item}</p>)}
 
       </div>
     );
