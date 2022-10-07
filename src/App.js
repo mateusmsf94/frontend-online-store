@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  // Primeiro commit
+  // Requisito 1
   return (
     <div className="App">
       <header className="App-header">
