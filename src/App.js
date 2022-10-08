@@ -9,9 +9,11 @@ class App extends React.Component {
   constructor() {
     super();
 
+    this.clickHandler = this.clickHandler.bind(this);
     this.state = {
       queryInput: '',
       products: [],
+      selectedCategorie: '',
     };
   }
 
@@ -22,31 +24,44 @@ class App extends React.Component {
   };
 
   handleButtonClick = async () => {
-    const { queryInput } = this.state;
-    const { results } = await getProductsFromCategoryAndQuery('MLB5672', queryInput);
+    const { queryInput, selectedCategorie } = this.state;
+    const { results } = await getProductsFromCategoryAndQuery(
+      selectedCategorie,
+      queryInput,
+    );
 
     this.setState({
       products: results,
     });
   };
 
+  clickHandler(event) {
+    event.preventDefault();
+    const {
+      target: { value },
+    } = event;
+    this.setState({
+      selectedCategorie: value,
+    }, () => this.handleButtonClick());
+  }
+
   render() {
-    const { queryInput, products } = this.state;
+    const { queryInput, products, selectedCategorie } = this.state;
 
     return (
       <>
         <BrowserRouter>
           <Route path="/shoppingCart" component={ ShoppingCart } />
           <Switch>
-            <Link
-              data-testid="shopping-cart-button"
-              to="/shoppingCart"
-            >
+            <Link data-testid="shopping-cart-button" to="/shoppingCart">
               Carrinho de compras
             </Link>
           </Switch>
         </BrowserRouter>
-        <Categories />
+        <Categories
+          selectHandle={ this.clickHandler }
+          selectedCategorie={ selectedCategorie }
+        />
         <input
           type="text"
           id="queryInput"
@@ -64,6 +79,7 @@ class App extends React.Component {
         {products.length !== 0 ? (
           products.map((product) => (
             <ProductCard
+              data-testid="product"
               key={ product.id }
               image={ product.thumbnail }
               name={ product.title }
