@@ -1,6 +1,9 @@
 import React from 'react';
-import ProductCard from './components/ProductCard';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from './services/api';
+import Categories from './components/Categories';
+import ProductCard from './components/ProductCard';
+import ShoppingCart from './pages/ShoppingCart';
 
 class App extends React.Component {
   constructor() {
@@ -32,6 +35,18 @@ class App extends React.Component {
 
     return (
       <>
+        <BrowserRouter>
+          <Route path="/shoppingCart" component={ ShoppingCart } />
+          <Switch>
+            <Link
+              data-testid="shopping-cart-button"
+              to="/shoppingCart"
+            >
+              Carrinho de compras
+            </Link>
+          </Switch>
+        </BrowserRouter>
+        <Categories />
         <input
           type="text"
           id="queryInput"
