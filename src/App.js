@@ -15,6 +15,7 @@ class App extends React.Component {
       queryInput: '',
       products: [],
       selectedCategorie: '',
+      cart: [],
     };
   }
 
@@ -36,6 +37,15 @@ class App extends React.Component {
     });
   };
 
+  addToCart = (product) => {
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, product],
+    }), () => {
+      const { cart } = this.state;
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
+  };
+
   clickHandler(event) {
     event.preventDefault();
     const {
@@ -50,12 +60,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { queryInput, products, selectedCategorie } = this.state;
+    const { queryInput, products, selectedCategorie, cart } = this.state;
 
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/shoppingCart" component={ ShoppingCart } />
+          <Route path="/shoppingCart" render={ () => <ShoppingCart cart={ cart } /> } />
           <Route
             exact
             path="/product/:id"
@@ -89,10 +99,8 @@ class App extends React.Component {
           products.map((product) => (
             <ProductCard
               key={ product.id }
-              id={ product.id }
-              image={ product.thumbnail }
-              name={ product.title }
-              price={ product.price.toString() }
+              product={ product }
+              addToCart={ this.addToCart }
             />
           ))
         ) : (
