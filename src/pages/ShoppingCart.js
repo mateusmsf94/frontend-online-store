@@ -2,25 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     cart: [],
-  //   };
-  // }
-
-  componentDidMount() {
-    this.addToState();
-  }
-
-  addToState = () => {
-    const getLocalStorage = localStorage.getItem('cart');
-    const data = JSON.parse(getLocalStorage);
-    this.setState({
-      cart: data,
-    });
-  };
-
   render() {
     const { cart } = this.props;
     return (
@@ -30,7 +11,7 @@ class ShoppingCart extends React.Component {
           : cart.map((item) => (
             <div key={ item.id }>
               <p data-testid="shopping-cart-product-name">{item.title}</p>
-              <p data-testid="shopping-cart-product-quantity" />
+              <p data-testid="shopping-cart-product-quantity">1</p>
             </div>
           ))}
 
@@ -40,7 +21,7 @@ class ShoppingCart extends React.Component {
 }
 
 ShoppingCart.propTypes = {
-  cart: PropTypes..isRequired,
+  cart: PropTypes.arrayOf(PropTypes.obj).isRequired,
 };
 
 export default ShoppingCart;
