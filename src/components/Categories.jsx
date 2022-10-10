@@ -42,7 +42,7 @@ class Categories extends React.Component {
 }
 
 Categories.propTypes = {
-  selectHandle: PropTypes.string.isRequired,
+  selectHandle: PropTypes.func.isRequired,
 };
 
 export default Categories;

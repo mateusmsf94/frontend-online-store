@@ -4,6 +4,7 @@ import { getProductsFromCategoryAndQuery } from './services/api';
 import Categories from './components/Categories';
 import ProductCard from './components/ProductCard';
 import ShoppingCart from './pages/ShoppingCart';
+import ProductDetails from './pages/ProductDetails';
 
 class App extends React.Component {
   constructor() {
@@ -40,24 +41,32 @@ class App extends React.Component {
     const {
       target: { value },
     } = event;
-    this.setState({
-      selectedCategorie: value,
-    }, () => this.handleButtonClick());
+    this.setState(
+      {
+        selectedCategorie: value,
+      },
+      () => this.handleButtonClick(),
+    );
   }
 
   render() {
     const { queryInput, products, selectedCategorie } = this.state;
 
     return (
-      <>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Switch>
           <Route path="/shoppingCart" component={ ShoppingCart } />
-          <Switch>
-            <Link data-testid="shopping-cart-button" to="/shoppingCart">
-              Carrinho de compras
-            </Link>
-          </Switch>
-        </BrowserRouter>
+          <Route
+            exact
+            path="/product/:id"
+            render={ (props) => <ProductDetails { ...props } /> }
+          />
+          {/* <Route path="/product/:id" component={ ProductDetails } /> */}
+          <Link data-testid="shopping-cart-button" to="/shoppingCart">
+            Carrinho de compras
+          </Link>
+        </Switch>
+
         <Categories
           selectHandle={ this.clickHandler }
           selectedCategorie={ selectedCategorie }
@@ -79,8 +88,8 @@ class App extends React.Component {
         {products.length !== 0 ? (
           products.map((product) => (
             <ProductCard
-              data-testid="product"
               key={ product.id }
+              id={ product.id }
               image={ product.thumbnail }
               name={ product.title }
               price={ product.price.toString() }
@@ -92,7 +101,7 @@ class App extends React.Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-      </>
+      </BrowserRouter>
     );
   }
 }
