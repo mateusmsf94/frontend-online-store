@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { image, name, price, id, product, addToCart } = this.props;
+    const { product, product: { id, thumbnail, title, price }, addToCart } = this.props;
     return (
       <div data-testid="product">
         <Link data-testid="product-detail-link" to={ `/product/${id}` }>
-          <img src={ image } alt={ `${name}` } />
-          <p>{name}</p>
+          <img src={ thumbnail } alt={ `${title}` } />
+          <p>{title}</p>
           <p>{price}</p>
         </Link>
         <button
@@ -25,10 +25,13 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+  }).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

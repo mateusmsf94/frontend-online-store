@@ -111,10 +111,6 @@ class App extends React.Component {
           products.map((product) => (
             <ProductCard
               key={ product.id }
-              id={ product.id }
-              image={ product.thumbnail }
-              name={ product.title }
-              price={ product.price }
               product={ product }
               addToCart={ this.addToCart }
             />
