@@ -6,7 +6,7 @@ class ShoppingCart extends React.Component {
     const { cart } = this.props;
     return (
       <div>
-        {!cart
+        {cart.length === 0
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
           : cart.map((item) => (
             <div key={ item.id }>

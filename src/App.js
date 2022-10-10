@@ -95,18 +95,6 @@ class App extends React.Component {
         >
           Pesquisar
         </button>
-        {cart.length !== 0
-          ? cart.map((item, index) => {
-            const { price, title, thumbnail, id } = item;
-            return (
-              <div key={ id }>
-                <p>{title}</p>
-                <p key={ index }>{price}</p>
-                <img src={ thumbnail } alt={ title } />
-              </div>
-            );
-          })
-          : <p>Cart vazio</p>}
         {products.length !== 0 ? (
           products.map((product) => (
             <ProductCard
