@@ -15,6 +15,7 @@ class App extends React.Component {
       queryInput: '',
       products: [],
       selectedCategorie: '',
+      cart: [],
     };
   }
 
@@ -36,6 +37,15 @@ class App extends React.Component {
     });
   };
 
+  addToCart = (product) => {
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, product],
+    }), () => {
+      const { cart } = this.state;
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
+  };
+
   clickHandler(event) {
     event.preventDefault();
     const {
@@ -50,12 +60,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { queryInput, products, selectedCategorie } = this.state;
+    const { queryInput, products, selectedCategorie, cart } = this.state;
 
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/shoppingCart" component={ ShoppingCart } />
+          <Route path="/shoppingCart" render={ () => <ShoppingCart cart={ cart } /> } />
           <Route
             exact
             path="/product/:id"
@@ -85,6 +95,18 @@ class App extends React.Component {
         >
           Pesquisar
         </button>
+        {cart.length !== 0
+          ? cart.map((item, index) => {
+            const { price, title, thumbnail, id } = item;
+            return (
+              <div key={ id }>
+                <p>{title}</p>
+                <p key={ index }>{price}</p>
+                <img src={ thumbnail } alt={ title } />
+              </div>
+            );
+          })
+          : <p>Cart vazio</p>}
         {products.length !== 0 ? (
           products.map((product) => (
             <ProductCard
@@ -92,7 +114,9 @@ class App extends React.Component {
               id={ product.id }
               image={ product.thumbnail }
               name={ product.title }
-              price={ product.price.toString() }
+              price={ product.price }
+              product={ product }
+              addToCart={ this.addToCart }
             />
           ))
         ) : (

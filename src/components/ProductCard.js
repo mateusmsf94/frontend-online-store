@@ -4,15 +4,22 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { image, name, price, id } = this.props;
+    const { image, name, price, id, product, addToCart } = this.props;
     return (
-      <Link data-testid="product-detail-link" to={ `/product/${id}` }>
-        <div data-testid="product">
+      <div data-testid="product">
+        <Link data-testid="product-detail-link" to={ `/product/${id}` }>
           <img src={ image } alt={ `${name}` } />
           <p>{name}</p>
           <p>{price}</p>
-        </div>
-      </Link>
+        </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => addToCart(product) }
+        >
+          Adcionar ao carrinho
+        </button>
+      </div>
     );
   }
 }
@@ -20,7 +27,7 @@ class ProductCard extends React.Component {
 ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
 };
 
