@@ -60,12 +60,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { queryInput, products, selectedCategorie, cart } = this.state;
+    const { queryInput, products, selectedCategorie } = this.state;
 
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/shoppingCart" render={ () => <ShoppingCart cart={ cart } /> } />
+          <Route path="/shoppingCart" component={ ShoppingCart } />
           <Route
             exact
             path="/product/:id"
