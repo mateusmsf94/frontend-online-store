@@ -11,11 +11,13 @@ class App extends React.Component {
     super();
 
     this.clickHandler = this.clickHandler.bind(this);
+    this.getCartItems = this.getCartItems.bind(this);
     this.state = {
       queryInput: '',
       products: [],
       selectedCategorie: '',
       cart: [],
+      cartItems: [],
     };
   }
 
@@ -36,6 +38,15 @@ class App extends React.Component {
       products: results,
     });
   };
+
+  getCartItems() {
+    const { cart, cartItems } = this.state;
+    const teste = localStorage.getItem('cart', JSON.stringify(cart));
+    console.log(teste);
+    this.setState(({
+      cartItems: cart,
+    }));
+  }
 
   addToCart = (product) => {
     this.setState((prevState) => ({
@@ -60,7 +71,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { queryInput, products, selectedCategorie } = this.state;
+    const { queryInput, products, selectedCategorie, cartItems, cart } = this.state;
 
     return (
       <BrowserRouter>
@@ -69,11 +80,16 @@ class App extends React.Component {
           <Route
             exact
             path="/product/:id"
-            render={ (props) => <ProductDetails { ...props } /> }
+            render={ (props) => (<ProductDetails
+              { ...props }
+              cart={ cart }
+              addToCart={ this.addToCart }
+            />) }
           />
           {/* <Route path="/product/:id" component={ ProductDetails } /> */}
           <Link data-testid="shopping-cart-button" to="/shoppingCart">
             Carrinho de compras
+            <p data-testid="shopping-cart-size">{cart.length}</p>
           </Link>
         </Switch>
 
