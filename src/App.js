@@ -21,6 +21,10 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getCartItems();
+  }
+
   handleChange = ({ target }) => {
     this.setState({
       [target.id]: target.value,
@@ -40,12 +44,13 @@ class App extends React.Component {
   };
 
   getCartItems() {
-    const { cart, cartItems } = this.state;
-    const teste = localStorage.getItem('cart', JSON.stringify(cart));
-    console.log(teste);
-    this.setState(({
-      cartItems: cart,
-    }));
+    const storage = localStorage.getItem('cart') || [];
+
+    if (storage.length) {
+      const cart = JSON.parse(storage);
+
+      this.setState(({ cart }));
+    }
   }
 
   addToCart = (product) => {
