@@ -17,7 +17,7 @@ class App extends React.Component {
       products: [],
       selectedCategorie: '',
       cart: [],
-      cartItems: [],
+
     };
   }
 
@@ -76,7 +76,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { queryInput, products, selectedCategorie, cartItems, cart } = this.state;
+    const { queryInput, products, selectedCategorie, cart } = this.state;
 
     return (
       <BrowserRouter>

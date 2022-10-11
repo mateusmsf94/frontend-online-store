@@ -64,6 +64,8 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   }).isRequired,
+  cart: PropTypes.arrayOf().isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
