@@ -6,7 +6,7 @@ class ProductCard extends React.Component {
   render() {
     const { product, product: { id, thumbnail, title, price }, addToCart } = this.props;
     return (
-      <div data-testid="product">
+      <section id="products-section" data-testid="product">
         <Link data-testid="product-detail-link" to={ `/product/${id}` }>
           <img src={ thumbnail } alt={ `${title}` } />
           <p>{title}</p>
@@ -19,7 +19,7 @@ class ProductCard extends React.Component {
         >
           Adcionar ao carrinho
         </button>
-      </div>
+      </section>
     );
   }
 }

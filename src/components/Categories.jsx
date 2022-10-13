@@ -24,7 +24,7 @@ class Categories extends React.Component {
     const { categories } = this.state;
     const { selectHandle } = this.props;
     return (
-      <div>
+      <div id="categories-aside">
         { categories
           .map((categorie) => (
             <button

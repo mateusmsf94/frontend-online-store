@@ -5,7 +5,6 @@ import Categories from './components/Categories';
 import ProductCard from './components/ProductCard';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetails from './pages/ProductDetails';
-import SearchLogo from './styles/images/header-search-logo.png';
 import './styles/App.css';
 // import HeaderMainLogo from './styles/images/header-main-logo.png';
 
@@ -103,7 +102,7 @@ class App extends React.Component {
                 value={ queryInput }
                 onChange={ this.handleChange }
                 data-testid="query-input"
-                placeholder="Pesquisar"
+                placeholder="Buscar por produtos"
               />
               <button
                 id="search-button"
@@ -123,31 +122,31 @@ class App extends React.Component {
               data-testid="shopping-cart-button"
               to="/shoppingCart"
             >
-              Carrinho de compras
+              <img id="cart-logo" src="https://64.media.tumblr.com/e766ce96a68f3c9a5f48076bad89deb4/80cc679144b62544-8f/s75x75_c1/fa08f9850ec48e9584765be1ed7df1458be83672.pnj" alt="Quantidade de itens" />
               <p id="cart-counter" data-testid="shopping-cart-size">{cart.length}</p>
             </Link>
           </div>
         </Switch>
-
-        <Categories
-          selectHandle={ this.clickHandler }
-          selectedCategorie={ selectedCategorie }
-        />
-
-        {products.length !== 0 ? (
-          products.map((product) => (
-            <ProductCard
-              key={ product.id }
-              product={ product }
-              addToCart={ this.addToCart }
+        <main id="main-content">
+            <Categories
+              selectHandle={ this.clickHandler }
+              selectedCategorie={ selectedCategorie }
             />
-          ))
-        ) : (
-          <p>Nenhum produto foi encontrado</p>
-        )}
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
+            {products.length !== 0 ? (
+              products.map((product) => (
+                <ProductCard
+                  key={ product.id }
+                  product={ product }
+                  addToCart={ this.addToCart }
+                />
+              ))
+            ) : (
+              <p>Nenhum produto foi encontrado</p>
+            )}
+            <p data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+        </main>
       </BrowserRouter>
     );
   }
